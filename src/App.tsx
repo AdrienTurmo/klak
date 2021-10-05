@@ -1,11 +1,13 @@
 import React from 'react';
+import HomeHeader from './components/HomeHeader/HomeHeader';
+import styles from './App.module.scss';
 
-function App() {
-  return (
-    <div className="App">
-      Empty App 2
-    </div>
-  );
-}
+
+const App : React.FC = () => (
+  <div className={styles.AppContainer}>
+    <HomeHeader/>
+    <button>Créer une liste d'armée</button>
+  </div>
+)
 
 export default App;

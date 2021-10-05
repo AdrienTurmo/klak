@@ -1,0 +1,16 @@
+.HomeHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .Title {
+    font-size: 40px;
+  }
+
+  .Separator {
+    border-bottom: 1px solid gray;
+    width: 95%;
+    display: block;
+  }
+}
