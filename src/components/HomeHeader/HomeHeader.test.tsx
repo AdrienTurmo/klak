@@ -6,7 +6,7 @@ import HomeHeader from './HomeHeader';
 describe('<HomeHeader />', () => {
   test('it should mount', () => {
     render(<HomeHeader />);
-    
+
     const homeHeader = screen.getByTestId('HomeHeader');
 
     expect(homeHeader).toBeInTheDocument();
