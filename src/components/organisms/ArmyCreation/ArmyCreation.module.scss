@@ -1,1 +1,51 @@
-.ArmyCreation {}
+.ArmyCreation {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .ArmyCategory {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .ArmyCategoryHeader {
+      display: flex;
+      align-items: center;
+      justify-content: normal;
+      gap: 20px;
+
+      .ArmyCategoryTitle {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .ArmyCategoryAddButton {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .ArmyCategoryUnits {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.AddUnitModal {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  align-items: center;
+
+  .AddUnitModalTitle {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .AddUnitModalButton {
+    margin-top: 5px;
+    cursor: pointer;
+  }
+}
