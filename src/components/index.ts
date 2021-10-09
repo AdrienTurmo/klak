@@ -5,5 +5,6 @@ export { Separator } from './atoms/Separator/Separator';
 export { HomeHeader } from './molecules/HomeHeader/HomeHeader';
 
 export { App } from './organisms/App';
-export { CreateNewArmy } from './organisms/CreateNewArmy/CreateNewArmy';
 export { ArmyCreation } from './organisms/ArmyCreation/ArmyCreation';
+export { CreateNewArmy } from './organisms/CreateNewArmy/CreateNewArmy';
+export { UnitLine } from './organisms/UnitLine/UnitLine';

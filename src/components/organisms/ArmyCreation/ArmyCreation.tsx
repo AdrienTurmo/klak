@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './ArmyCreation.module.scss';
-import { Button, Modal } from 'components';
+import { Button, Modal, UnitLine } from 'components';
 
 interface Props {
   army: Army;
@@ -38,9 +38,7 @@ export const ArmyCreation: React.FC<Props> = ({ army }) => {
         <div>Bases</div>
         <div onClick={() => setSelectedCategory(newUnitCategories.base)}>+</div>
         {baseUnits.map((armyUnit) => (
-          <div key={armyUnit.unit.name}>
-            {armyUnit.unit.name} nb: {armyUnit.number} pts:{calculateArmyUnitPoints(armyUnit)}
-          </div>
+          <UnitLine armyUnit={armyUnit} key={armyUnit.unit.name} />
         ))}
       </div>
 
