@@ -1,0 +1,17 @@
+.NewArmyModal {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  align-items: center;
+
+  div:first-child {
+    margin-top: 10px;
+    font-size: 18px;
+    color: black;
+  }
+
+  button {
+    margin-top: 5px;
+    cursor: pointer;
+  }
+}

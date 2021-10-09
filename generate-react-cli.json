@@ -6,7 +6,9 @@
   "component": {
     "default": {
       "customTemplates": {
-        "component": "src/templates/component/TemplateName.tsx"
+        "component": "src/templates/component/TemplateName.tsx",
+        "style": "src/templates/component/TemplateName.module.scss",
+        "test": "src/templates/component/TemplateName.test.tsx"
       },
       "path": "src/components",
       "withStyle": true,

@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './HomeHeader.module.scss';
+import { Separator } from 'components/index';
 
-const HomeHeader: React.FC = () => (
+export const HomeHeader: React.FC = () => (
   <div className={styles.HomeHeader}>
     <div className={styles.Title} data-testid="HomeHeader">
       Warhammer Army Maker
     </div>
-    <div className={styles.Separator} />
+    <Separator className={styles.Separator} />
   </div>
 );
-
-export default HomeHeader;
