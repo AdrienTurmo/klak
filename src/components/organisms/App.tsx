@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './App.module.scss';
 import { HomeHeader, CreateNewArmy } from 'components';
 import { ArmyCreation } from './ArmyCreation/ArmyCreation';
+import { ArmyCreationContextProvider } from './ArmyCreation/ArmyCreationContext';
 
 export const App: React.FC = () => {
   const [army, setArmy] = useState<Army>();
@@ -10,7 +11,11 @@ export const App: React.FC = () => {
     <div className={styles.AppContainer}>
       <HomeHeader />
       {!army && <CreateNewArmy onArmySelect={setArmy} />}
-      {army && <ArmyCreation army={army} />}
+      {army && (
+        <ArmyCreationContextProvider army={army}>
+          <ArmyCreation />
+        </ArmyCreationContextProvider>
+      )}
     </div>
   );
 };

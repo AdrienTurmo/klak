@@ -1,34 +1,32 @@
 export const ComptesVampiresV6: Army = {
   name: 'Comptes Vampires',
-  lords: [
+  units: [
     {
+      type: 'LORD',
       name: 'Compte Vampire',
       minNumber: 1,
       maxNumber: 1,
       pointsByUnit: 205,
       options: [{ name: 'Cauchemar', points: 12 }],
     },
-  ],
-  heroes: [
     {
+      type: 'HERO',
       name: 'Compte Nouveau-né',
       minNumber: 1,
       maxNumber: 1,
       pointsByUnit: 80,
       options: [{ name: 'Cauchemar', points: 8 }],
     },
-  ],
-  bases: [
     {
+      type: 'BASE',
       name: 'Zombies',
       minNumber: 10,
       maxNumber: 40,
       pointsByUnit: 6,
       options: [{ name: 'Musicien', points: 6 }],
     },
-  ],
-  specials: [
     {
+      type: 'SPECIAL',
       name: 'Garde des cryptes',
       minNumber: 10,
       maxNumber: 30,
@@ -36,9 +34,8 @@ export const ComptesVampiresV6: Army = {
       options: [{ name: 'Cauchemar', points: 12 }],
       optionsByUnit: [{ name: 'Noucliers', points: 1 }],
     },
-  ],
-  rares: [
     {
+      type: 'RARE',
       name: 'Carosse Noir',
       minNumber: 1,
       maxNumber: 1,

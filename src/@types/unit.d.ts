@@ -1,4 +1,5 @@
 interface Unit {
+  type: UnitType;
   name: string;
   minNumber: number;
   maxNumber: number;
