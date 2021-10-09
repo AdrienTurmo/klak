@@ -5,6 +5,9 @@
   "testLibrary": "Testing Library",
   "component": {
     "default": {
+      "customTemplates": {
+        "component": "src/templates/component/TemplateName.tsx"
+      },
       "path": "src/components",
       "withStyle": true,
       "withTest": true,
