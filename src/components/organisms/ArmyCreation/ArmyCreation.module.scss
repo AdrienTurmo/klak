@@ -29,6 +29,22 @@
     .ArmyCategoryUnits {
       display: flex;
       flex-direction: column;
+
+      .ArmyCategoryUnitsHeader {
+        display: grid;
+        grid-template-columns: 20% 10% 10%;
+
+        div {
+          border: 1px solid black;
+          border-right: none;
+          border-bottom: 2px solid black;
+          padding: 10px;
+
+          &:last-child {
+            border-right: 1px solid black;
+          }
+        }
+      }
     }
   }
 }
