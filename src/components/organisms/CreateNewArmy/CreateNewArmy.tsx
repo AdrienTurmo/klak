@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'components';
-import styles from './MainPageActions.module.scss';
+import styles from './CreateNewArmy.module.scss';
 import { AllArmies, Versions } from 'data/allArmies';
 
 type ArmyCreationStates = 'SELECT_VERSION' | 'SELECT-ARMY';
 
-export const MainPageActions: React.FC = () => {
+interface Props {
+  onArmySelect: (army: Army) => void;
+}
+
+export const CreateNewArmy: React.FC<Props> = ({ onArmySelect }) => {
   const [openCreateArmy, setOpenCreateArmy] = useState(false);
   const [armyCreationState, setArmyCreationState] = useState<ArmyCreationStates>('SELECT_VERSION');
   const [chosenVersion, setChosenVersion] = useState<Army[]>([]);
@@ -37,14 +41,19 @@ export const MainPageActions: React.FC = () => {
     </>
   );
 
+  const selectArmy = (army: Army) => () => {
+    onArmySelect(army);
+    closeModal();
+  };
+
   const ArmyChoice = (
     <>
       <div>Sélectionnez une armée</div>
-      {chosenVersion
-        .map((army) => army.name)
-        .map((armyName) => (
-          <Button key={armyName}>{armyName}</Button>
-        ))}
+      {chosenVersion.map((army) => (
+        <Button key={army.name} onClick={selectArmy(army)}>
+          {army.name}
+        </Button>
+      ))}
       <div />
     </>
   );
@@ -57,7 +66,7 @@ export const MainPageActions: React.FC = () => {
     }
   };
 
-  const onCloseModal = () => {
+  const closeModal = () => {
     setArmyCreationState('SELECT_VERSION');
     setChosenVersion([]);
     setOpenCreateArmy(false);
@@ -66,7 +75,7 @@ export const MainPageActions: React.FC = () => {
     <>
       <Button onClick={() => setOpenCreateArmy(true)}>Créer une liste d&apos;armée</Button>
       {openCreateArmy && (
-        <Modal onClickClose={onCloseModal} title="Créer une nouvelle armée">
+        <Modal onClickClose={closeModal} title="Créer une nouvelle armée">
           <div className={styles.NewArmyModal}>{getStateDisplay()}</div>
         </Modal>
       )}

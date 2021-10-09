@@ -7,6 +7,6 @@ export const HomeHeader: React.FC = () => (
     <div className={styles.Title} data-testid="HomeHeader">
       Warhammer Army Maker
     </div>
-    <Separator className={styles.Separator} />
+    <Separator />
   </div>
 );

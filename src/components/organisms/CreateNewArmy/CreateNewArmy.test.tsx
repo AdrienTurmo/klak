@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { MainPageActions } from './MainPageActions';
+import { CreateNewArmy } from './CreateNewArmy';
 
-describe('<MainPageActions />', () => {
+describe('<CreateNewArmy />', () => {
   test('it should mount', () => {
-    render(<MainPageActions />);
+    render(<CreateNewArmy onArmySelect={() => null} />);
 
     const mainPageActions = screen.getByTestId('MainPageActions');
 
