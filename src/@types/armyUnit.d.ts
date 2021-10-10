@@ -1,5 +1,6 @@
 interface ArmyUnit {
+  id: number;
   unit: Unit;
-  number: number;
+  quantity: number;
   options?: Option[];
 }

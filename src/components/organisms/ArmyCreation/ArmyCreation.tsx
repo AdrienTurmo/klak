@@ -38,7 +38,7 @@ const unitCategories: UnitCategory[] = [
 
 export const ArmyCreation: React.FC = () => {
   const [categoryOfUnitToAdd, setCategoryOfUnitToAdd] = useState<UnitCategory>();
-  const { addUnit, getUnits, getArmyUnits, calculateTotalArmyPoints } = useArmyCreationContext();
+  const { addUnit, getUnits, getArmyUnits, totalArmyPoints } = useArmyCreationContext();
 
   const onClickAddUnit = (unit: Unit) => () => {
     setCategoryOfUnitToAdd(undefined);
@@ -70,7 +70,7 @@ export const ArmyCreation: React.FC = () => {
           </div>
         ))}
 
-        <div>Total: {calculateTotalArmyPoints() | 0}</div>
+        <div>Total: {totalArmyPoints}</div>
       </div>
 
       {categoryOfUnitToAdd && (
