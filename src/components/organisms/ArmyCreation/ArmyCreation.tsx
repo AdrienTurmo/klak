@@ -38,7 +38,7 @@ const unitCategories: UnitCategory[] = [
 
 export const ArmyCreation: React.FC = () => {
   const [categoryOfUnitToAdd, setCategoryOfUnitToAdd] = useState<UnitCategory>();
-  const { addUnit, getUnits, getArmyUnits, totalArmyPoints } = useArmyCreationContext();
+  const { addUnit, getUnits, getArmyUnitsForType, totalArmyPoints, getPointsForType } = useArmyCreationContext();
 
   const onClickAddUnit = (unit: Unit) => () => {
     setCategoryOfUnitToAdd(undefined);
@@ -55,13 +55,15 @@ export const ArmyCreation: React.FC = () => {
               <Button className={styles.ArmyCategoryAddButton} onClick={() => setCategoryOfUnitToAdd(unitCategory)}>
                 +
               </Button>
+              <div>Nombres : {getArmyUnitsForType(unitCategory.type).length}</div>
+              <div>Points : {getPointsForType(unitCategory.type)}</div>
             </div>
             <div className={styles.ArmyCategoryUnits}>
               <div>Unité</div>
               <div>Quantité</div>
               <div>Options/Équipement</div>
               <div>Points</div>
-              {getArmyUnits(unitCategory.type).map((armyUnit, index) => (
+              {getArmyUnitsForType(unitCategory.type).map((armyUnit, index) => (
                 <UnitLine armyUnit={armyUnit} key={index} />
               ))}
             </div>
