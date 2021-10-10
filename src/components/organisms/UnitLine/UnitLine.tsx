@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './UnitLine.module.scss';
-import { Button, Modal, AddOptionLine, useArmyCreationContext } from 'components';
+import { AddOptionLine, Button, Modal, useArmyCreationContext } from 'components';
 
 interface Props {
   armyUnit: ArmyUnit;
@@ -63,13 +63,16 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
           +
         </Button>
         <span className={styles.UnitLineOptionsList}>
-          {Array.from(armyUnit.chosenOptions).map((chosenOption) => (
-            <span key={chosenOption.option.name} className={styles.Option}>
-              <Button onClick={removeOption(chosenOption)}>-</Button>
-              <span>{chosenOption.option.name}</span>
-              {chosenOption.withSubOption && chosenOption.option.subOption && <span> + {chosenOption.option.subOption.name}</span>}
-            </span>
-          ))}
+          {Array.from(armyUnit.chosenOptions)
+            .sort((co1, co2) => co1.option.name.localeCompare(co2.option.name))
+            .sort((choseOption, _) => (choseOption.option.type === 'SINGLE' ? 1 : 0))
+            .map((chosenOption) => (
+              <span key={chosenOption.option.name} className={styles.Option}>
+                <Button onClick={removeOption(chosenOption)}>-</Button>
+                <span>{chosenOption.option.name}</span>
+                {chosenOption.withSubOption && chosenOption.option.subOption && <span> + {chosenOption.option.subOption.name}</span>}
+              </span>
+            ))}
         </span>
       </div>
       <div>{calculateArmyUnitPoints(armyUnit)}</div>
@@ -77,9 +80,12 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
       {choseOption && (
         <Modal onClickClose={() => setChoseOption(false)} title="Ajouter un équipement">
           <div className={styles.AddOptionModal}>
-            {Array.from(armyUnit.unit.options).map((option) => (
-              <AddOptionLine option={option} key={option.name} onClickAdd={addOption(option)} />
-            ))}
+            {Array.from(armyUnit.unit.options)
+              .sort((o1, o2) => o1.name.localeCompare(o2.name))
+              .sort((option, _) => (option.type === 'SINGLE' ? 1 : 0))
+              .map((option) => (
+                <AddOptionLine option={option} key={option.name} onClickAdd={addOption(option)} />
+              ))}
           </div>
         </Modal>
       )}
