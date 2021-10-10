@@ -32,6 +32,7 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
       id: id,
       unit: unit,
       quantity: unit.minQuantity,
+      options: new Set<Option>(),
     });
     setId(id + 1);
   };
@@ -39,7 +40,13 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
   const getUnits = (type: UnitType) => army.units.filter((unit) => unit.type === type);
   const getArmyUnits = (type: UnitType) => armyUnits.filter((armyUnit) => armyUnit.unit.type === type);
 
-  const calculateArmyUnitPoints = (armyUnit: ArmyUnit) => armyUnit.unit.pointsByUnit * armyUnit.quantity;
+  const calculateArmyUnitPoints = (armyUnit: ArmyUnit) => {
+    const unitOptionsCost = Array.from(armyUnit.options)
+      .map((option) => (option.points + (option.subOption?.points || 0)) * (option.type === 'SINGLE' ? 1 : armyUnit.quantity))
+      .reduce((p, c) => p + c, 0);
+    return armyUnit.unit.pointsByUnit * armyUnit.quantity + unitOptionsCost;
+  };
+
   const totalArmyPoints = armyUnits
     .map((armyUnit) => calculateArmyUnitPoints(armyUnit))
     .reduce((previousValue, currentValue) => previousValue + currentValue, 0);

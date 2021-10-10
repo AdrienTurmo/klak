@@ -4,6 +4,5 @@ interface Unit {
   minQuantity: number;
   maxQuantity: number;
   pointsByUnit: number;
-  options?: Option[];
-  optionsByUnit?: Option[];
+  options: Set<Option>;
 }

@@ -59,6 +59,7 @@ export const ArmyCreation: React.FC = () => {
             <div className={styles.ArmyCategoryUnits}>
               <div>Unité</div>
               <div>Quantité</div>
+              <div>Options/Équipement</div>
               <div>Points</div>
               {getArmyUnits(unitCategory.type).map((armyUnit, index) => (
                 <UnitLine armyUnit={armyUnit} key={index} />

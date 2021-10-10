@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './UnitLine.module.scss';
-import { Button, useArmyCreationContext } from 'components';
+import { Button, Modal, AddOptionLine, useArmyCreationContext } from 'components';
 
 interface Props {
   armyUnit: ArmyUnit;
@@ -9,6 +9,7 @@ interface Props {
 export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
   const { calculateArmyUnitPoints, changeQuantityOfUnit } = useArmyCreationContext();
   const [quantityInput, setQuantityInput] = useState(`${armyUnit.quantity}`);
+  const [choseOption, setChoseOption] = useState(false);
 
   const changeUnitQuantity = (newQuantity?: number) => () => {
     const boxedQuantity = Math.max(Math.min(armyUnit.unit.maxQuantity, newQuantity || 0), armyUnit.unit.minQuantity);
@@ -22,6 +23,12 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
 
   const changeQuantityInput = (event: React.FocusEvent<HTMLInputElement>) => {
     setQuantityInput(event.target.value);
+  };
+
+  const addOption = (option: Option) => (withSubOption: boolean) => {
+    setChoseOption(false);
+    armyUnit.options.add({ ...option, subOption: withSubOption ? option.subOption : undefined });
+    armyUnit.unit.options.delete(option);
   };
 
   return (
@@ -44,7 +51,23 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
           </>
         )}
       </div>
+      <div>
+        {armyUnit.unit.options.size > 0 && <Button onClick={() => setChoseOption(true)}>+</Button>}
+        {Array.from(armyUnit.options).map((option) => (
+          <span key={option.name}>{option.name}</span>
+        ))}
+      </div>
       <div>{calculateArmyUnitPoints(armyUnit)}</div>
+
+      {choseOption && (
+        <Modal onClickClose={() => setChoseOption(false)} title="Ajouter un équipement">
+          <div className={styles.AddOptionModal}>
+            {Array.from(armyUnit.unit.options).map((option) => (
+              <AddOptionLine option={option} key={option.name} onClickAdd={addOption(option)} />
+            ))}
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

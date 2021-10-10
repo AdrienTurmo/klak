@@ -7,7 +7,10 @@ export const ComptesVampiresV6: Army = {
       minQuantity: 1,
       maxQuantity: 1,
       pointsByUnit: 205,
-      options: [{ name: 'Cauchemar', points: 12 }],
+      options: new Set<Option>([
+        { name: 'Cauchemar', points: 12, type: 'SINGLE', subOption: { name: 'Carapaçon', points: 6, type: 'SINGLE' } },
+        { name: 'Arme Lourde', points: 6, type: 'SINGLE' },
+      ]),
     },
     {
       type: 'HERO',
@@ -15,7 +18,7 @@ export const ComptesVampiresV6: Army = {
       minQuantity: 1,
       maxQuantity: 1,
       pointsByUnit: 80,
-      options: [{ name: 'Cauchemar', points: 8 }],
+      options: new Set<Option>([{ name: 'Cauchemar', points: 8, type: 'SINGLE' }]),
     },
     {
       type: 'BASE',
@@ -23,7 +26,7 @@ export const ComptesVampiresV6: Army = {
       minQuantity: 10,
       maxQuantity: 40,
       pointsByUnit: 6,
-      options: [{ name: 'Musicien', points: 6 }],
+      options: new Set<Option>([{ name: 'Musicien', points: 6, type: 'SINGLE' }]),
     },
     {
       type: 'SPECIAL',
@@ -31,8 +34,11 @@ export const ComptesVampiresV6: Army = {
       minQuantity: 10,
       maxQuantity: 30,
       pointsByUnit: 12,
-      options: [{ name: 'Cauchemar', points: 12 }],
-      optionsByUnit: [{ name: 'Noucliers', points: 1 }],
+      options: new Set<Option>([
+        { name: 'Champion', points: 12, type: 'SINGLE' },
+        { name: 'Boucliers', points: 1, type: 'BY_UNIT' },
+        { name: 'Hallebarde', points: 2, type: 'BY_UNIT' },
+      ]),
     },
     {
       type: 'RARE',
@@ -40,6 +46,7 @@ export const ComptesVampiresV6: Army = {
       minQuantity: 1,
       maxQuantity: 1,
       pointsByUnit: 200,
+      options: new Set<Option>(),
     },
   ],
 };
