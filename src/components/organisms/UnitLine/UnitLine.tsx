@@ -28,15 +28,21 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
     <div className={styles.UnitLine} data-testid="UnitLine">
       <div>{armyUnit.unit.name}</div>
       <div className={styles.UnitLineQuantity}>
-        <Button onClick={changeUnitQuantity(armyUnit.quantity - 1)}>-</Button>
-        <input
-          className={styles.UnitLineQuantityInput}
-          type="text"
-          value={quantityInput}
-          onChange={changeQuantityInput}
-          onBlur={onInputBlur}
-        />
-        <Button onClick={changeUnitQuantity(armyUnit.quantity + 1)}>+</Button>
+        {armyUnit.unit.minQuantity === 1 ? (
+          <span className={styles.UnitLineQuantityInput}>{armyUnit.quantity}</span>
+        ) : (
+          <>
+            <Button onClick={changeUnitQuantity(armyUnit.quantity - 1)}>-</Button>
+            <input
+              className={styles.UnitLineQuantityInput}
+              type="text"
+              value={quantityInput}
+              onChange={changeQuantityInput}
+              onBlur={onInputBlur}
+            />
+            <Button onClick={changeUnitQuantity(armyUnit.quantity + 1)}>+</Button>
+          </>
+        )}
       </div>
       <div>{calculateArmyUnitPoints(armyUnit)}</div>
     </div>
