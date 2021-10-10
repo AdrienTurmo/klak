@@ -33,7 +33,7 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
     setArmyUnits(
       armyUnits.concat({
         id: id,
-        unit: unit,
+        unit: { ...unit },
         quantity: unit.minQuantity,
         chosenOptions: new Set<ChosenOption>(),
       }),

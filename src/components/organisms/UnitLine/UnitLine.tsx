@@ -26,10 +26,11 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
   };
 
   const addOption = (option: Option) => (withSubOption: boolean) => {
-    armyUnit.chosenOptions.add({ option, withSubOption });
-    armyUnit.unit.options.delete(option);
-    updateUnit(armyUnit);
-    if (armyUnit.unit.options.size === 0) {
+    const chosenOptions: Set<ChosenOption> = new Set<ChosenOption>(armyUnit.chosenOptions).add({ option, withSubOption });
+    const options = new Set<Option>(armyUnit.unit.options);
+    options.delete(option);
+    updateUnit({ ...armyUnit, chosenOptions: chosenOptions, unit: { ...armyUnit.unit, options: options } });
+    if (options.size === 0) {
       setChoseOption(false);
     }
   };

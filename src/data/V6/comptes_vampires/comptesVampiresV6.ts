@@ -29,6 +29,14 @@ export const ComptesVampiresV6: Army = {
       options: new Set<Option>([{ name: 'Musicien', points: 6, type: 'SINGLE' }]),
     },
     {
+      type: 'BASE',
+      name: 'Squellettes',
+      minQuantity: 10,
+      maxQuantity: 40,
+      pointsByUnit: 8,
+      options: new Set<Option>([{ name: 'Musicien', points: 6, type: 'SINGLE' }]),
+    },
+    {
       type: 'SPECIAL',
       name: 'Garde des cryptes',
       minQuantity: 10,
