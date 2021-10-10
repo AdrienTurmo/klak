@@ -1,8 +1,8 @@
 interface Unit {
   type: UnitType;
   name: string;
-  minNumber: number;
-  maxNumber: number;
+  minQuantity: number;
+  maxQuantity: number;
   pointsByUnit: number;
   options?: Option[];
   optionsByUnit?: Option[];

@@ -31,7 +31,7 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
     armyUnits.push({
       id: id,
       unit: unit,
-      quantity: unit.minNumber,
+      quantity: unit.minQuantity,
     });
     setId(id + 1);
   };

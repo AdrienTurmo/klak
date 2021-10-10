@@ -14,4 +14,17 @@
     }
   }
 
+  .UnitLineQuantity {
+    display: flex;
+    gap: 10px;
+
+    >button {
+      width: 20px;
+    }
+
+    .UnitLineQuantityInput {
+      width: 50px;
+    }
+  }
+
 }
