@@ -1,30 +1,13 @@
-.UnitLine {
-  display: grid;
-  grid-template-columns: 20% 10% 10%;
-  border-bottom: none;
+.UnitLineQuantity {
+  display: flex;
+  gap: 10px;
 
-  div {
-    border: 1px solid black;
-    border-right: none;
-    border-top: none;
-    padding: 10px;
-
-    &:last-child {
-      border-right: 1px solid black;
-    }
+  > button {
+    width: 20px;
   }
 
-  .UnitLineQuantity {
-    display: flex;
-    gap: 10px;
-
-    >button {
-      width: 20px;
-    }
-
-    .UnitLineQuantityInput {
-      width: 30px;
-    }
+  .UnitLineQuantityInput {
+    width: 30px;
   }
-
 }
+

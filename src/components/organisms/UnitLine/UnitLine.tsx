@@ -25,7 +25,7 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
   };
 
   return (
-    <div className={styles.UnitLine} data-testid="UnitLine">
+    <>
       <div>{armyUnit.unit.name}</div>
       <div className={styles.UnitLineQuantity}>
         {armyUnit.unit.minQuantity === 1 ? (
@@ -45,6 +45,6 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
         )}
       </div>
       <div>{calculateArmyUnitPoints(armyUnit)}</div>
-    </div>
+    </>
   );
 };

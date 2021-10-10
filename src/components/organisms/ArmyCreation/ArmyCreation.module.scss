@@ -27,22 +27,24 @@
     }
 
     .ArmyCategoryUnits {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 20% 10% 10%;
 
-      .ArmyCategoryUnitsHeader {
-        display: grid;
-        grid-template-columns: 20% 10% 10%;
+      div {
+        border: 1px solid black;
+        border-top: none;
+        border-left: none;
+        padding: 10px;
 
-        div {
-          border: 1px solid black;
-          border-right: none;
+        &:nth-child(3n+1) {
+          border-left: 1px solid black;
+        }
+
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(3) {
+          border-top: 1px solid black;
           border-bottom: 2px solid black;
-          padding: 10px;
-
-          &:last-child {
-            border-right: 1px solid black;
-          }
         }
       }
     }
