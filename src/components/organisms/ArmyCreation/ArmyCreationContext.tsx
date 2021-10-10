@@ -7,7 +7,7 @@ interface ArmyCreationContextValue {
   addUnit: (unit: Unit) => void;
   calculateArmyUnitPoints: (armyUnit: ArmyUnit) => number;
   totalArmyPoints: number;
-  changeQuantityOfUnit: (armyUnitToChange: ArmyUnit, newQuantity: number) => void;
+  updateUnit: (armyUnitToChange: ArmyUnit) => void;
 }
 
 const ArmyCreationContext = React.createContext<ArmyCreationContextValue>({
@@ -17,7 +17,7 @@ const ArmyCreationContext = React.createContext<ArmyCreationContextValue>({
   addUnit: () => null,
   calculateArmyUnitPoints: () => 0,
   totalArmyPoints: 0,
-  changeQuantityOfUnit: () => null,
+  updateUnit: () => null,
 });
 
 interface Props {
@@ -32,7 +32,7 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
       id: id,
       unit: unit,
       quantity: unit.minQuantity,
-      options: new Set<Option>(),
+      chosenOptions: new Set<ChosenOption>(),
     });
     setId(id + 1);
   };
@@ -41,8 +41,12 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
   const getArmyUnits = (type: UnitType) => armyUnits.filter((armyUnit) => armyUnit.unit.type === type);
 
   const calculateArmyUnitPoints = (armyUnit: ArmyUnit) => {
-    const unitOptionsCost = Array.from(armyUnit.options)
-      .map((option) => (option.points + (option.subOption?.points || 0)) * (option.type === 'SINGLE' ? 1 : armyUnit.quantity))
+    const unitOptionsCost = Array.from(armyUnit.chosenOptions)
+      .map(
+        (chosenOption) =>
+          (chosenOption.option.points + (chosenOption.withSubOption ? chosenOption.option.subOption?.points || 0 : 0)) *
+          (chosenOption.option.type === 'SINGLE' ? 1 : armyUnit.quantity),
+      )
       .reduce((p, c) => p + c, 0);
     return armyUnit.unit.pointsByUnit * armyUnit.quantity + unitOptionsCost;
   };
@@ -51,11 +55,11 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
     .map((armyUnit) => calculateArmyUnitPoints(armyUnit))
     .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
 
-  const changeQuantityOfUnit = (armyUnitToChange: ArmyUnit, newQuantity: number) => {
-    const unitIndex = armyUnits.findIndex((armyUnit) => armyUnit.id === armyUnitToChange.id);
+  const updateUnit = (updatedUnit: ArmyUnit) => {
+    const unitIndex = armyUnits.findIndex((armyUnit) => armyUnit.id === updatedUnit.id);
     const start = armyUnits.slice(0, unitIndex);
     const end = armyUnits.slice(unitIndex + 1);
-    setArmyUnits(start.concat(end).concat({ ...armyUnitToChange, quantity: newQuantity }));
+    setArmyUnits(start.concat(end).concat({ ...updatedUnit }));
   };
 
   return (
@@ -67,7 +71,7 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
         addUnit,
         calculateArmyUnitPoints,
         totalArmyPoints,
-        changeQuantityOfUnit,
+        updateUnit,
       }}
     >
       {children}

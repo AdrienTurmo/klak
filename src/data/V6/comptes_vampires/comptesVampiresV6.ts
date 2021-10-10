@@ -8,7 +8,7 @@ export const ComptesVampiresV6: Army = {
       maxQuantity: 1,
       pointsByUnit: 205,
       options: new Set<Option>([
-        { name: 'Cauchemar', points: 12, type: 'SINGLE', subOption: { name: 'Carapaçon', points: 6, type: 'SINGLE' } },
+        { name: 'Cauchemar', points: 12, type: 'SINGLE', subOption: { name: 'Carapaçon', points: 6 } },
         { name: 'Arme Lourde', points: 6, type: 'SINGLE' },
       ]),
     },

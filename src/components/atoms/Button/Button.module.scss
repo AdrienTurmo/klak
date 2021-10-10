@@ -10,7 +10,12 @@
   justify-content: center;
   align-items: center;
 
-  &:active {
+  &:enabled:active {
+    box-shadow: none
+  }
+
+  &:disabled {
+    background-color: gray;
     box-shadow: none
   }
 }

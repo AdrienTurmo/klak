@@ -7,13 +7,13 @@ interface Props {
 }
 
 export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
-  const { calculateArmyUnitPoints, changeQuantityOfUnit } = useArmyCreationContext();
+  const { calculateArmyUnitPoints, updateUnit } = useArmyCreationContext();
   const [quantityInput, setQuantityInput] = useState(`${armyUnit.quantity}`);
   const [choseOption, setChoseOption] = useState(false);
 
   const changeUnitQuantity = (newQuantity?: number) => () => {
     const boxedQuantity = Math.max(Math.min(armyUnit.unit.maxQuantity, newQuantity || 0), armyUnit.unit.minQuantity);
-    changeQuantityOfUnit(armyUnit, boxedQuantity);
+    updateUnit({ ...armyUnit, quantity: boxedQuantity });
     setQuantityInput(`${boxedQuantity}`);
   };
 
@@ -27,8 +27,15 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
 
   const addOption = (option: Option) => (withSubOption: boolean) => {
     setChoseOption(false);
-    armyUnit.options.add({ ...option, subOption: withSubOption ? option.subOption : undefined });
+    armyUnit.chosenOptions.add({ option, withSubOption });
     armyUnit.unit.options.delete(option);
+    updateUnit(armyUnit);
+  };
+
+  const removeOption = (chosenOption: ChosenOption) => () => {
+    armyUnit.chosenOptions.delete(chosenOption);
+    armyUnit.unit.options.add(chosenOption.option);
+    updateUnit(armyUnit);
   };
 
   return (
@@ -51,11 +58,19 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
           </>
         )}
       </div>
-      <div>
-        {armyUnit.unit.options.size > 0 && <Button onClick={() => setChoseOption(true)}>+</Button>}
-        {Array.from(armyUnit.options).map((option) => (
-          <span key={option.name}>{option.name}</span>
-        ))}
+      <div className={styles.UnitLineOptions} key={armyUnit.chosenOptions.size}>
+        <Button onClick={() => setChoseOption(true)} disabled={armyUnit.unit.options.size === 0}>
+          +
+        </Button>
+        <span className={styles.UnitLineOptionsList}>
+          {Array.from(armyUnit.chosenOptions).map((chosenOption) => (
+            <span key={chosenOption.option.name} className={styles.Option}>
+              <Button onClick={removeOption(chosenOption)}>-</Button>
+              <span>{chosenOption.option.name}</span>
+              {chosenOption.withSubOption && chosenOption.option.subOption && <span> + {chosenOption.option.subOption.name}</span>}
+            </span>
+          ))}
+        </span>
       </div>
       <div>{calculateArmyUnitPoints(armyUnit)}</div>
 

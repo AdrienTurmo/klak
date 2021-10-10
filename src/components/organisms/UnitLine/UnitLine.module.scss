@@ -1,15 +1,37 @@
 .UnitLineQuantity {
   display: flex;
-  gap: 10px;
-
+  justify-content: space-between;
+  align-items: center;
   > button {
     width: 20px;
+    height: 26px;
   }
 
   .UnitLineQuantityInput {
-    width: 30px;
+    height: 24px;
+    width: 50%;
+    min-width: 24px;
   }
 }
+
+.UnitLineOptions {
+  display: flex;
+  border: 2px solid red;
+  padding: 0;
+  gap: 20px;
+
+  .UnitLineOptionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .Option {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}
+
 
 .AddOptionModal {
   display: flex;

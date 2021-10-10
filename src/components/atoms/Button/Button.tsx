@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Button.module.scss';
 import clsx from 'clsx';
 
-interface Props extends React.HtmlHTMLAttributes<HTMLButtonElement> {
+interface Props extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   className?: string;
 }
 

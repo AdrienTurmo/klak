@@ -25,7 +25,7 @@ export const AddOptionLine: React.FC<Props> = ({ option, onClickAdd }) => {
           <span>{option.subOption.name}</span>
           <span className={styles.AddOptionLinePoints}>
             {option.subOption.points} pt{option.subOption.points > 1 && 's'}
-            {option.subOption.type === 'BY_UNIT' && '/unité'}
+            {option.type === 'BY_UNIT' && '/unité'}
           </span>
         </>
       )}
