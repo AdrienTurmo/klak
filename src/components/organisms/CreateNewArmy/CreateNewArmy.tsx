@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'components';
 import styles from './CreateNewArmy.module.scss';
-import { AllArmies, Versions } from 'data/allArmies';
+import { AllArmies, Versions } from '_data/allArmies';
 
 type ArmyCreationStates = 'SELECT_VERSION' | 'SELECT-ARMY';
 

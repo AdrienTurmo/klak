@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { Button } from './Button';
 
 describe('<Button />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<Button />);
 
     const button = screen.getByTestId('Button');

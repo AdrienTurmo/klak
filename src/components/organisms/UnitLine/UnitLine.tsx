@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './UnitLine.module.scss';
-import { AddOptionLine, Button, Modal, useArmyCreationContext } from 'components';
+import { Button, Icon, UnitLineOptions } from 'components';
+import { useArmyCreationContext } from 'contexts';
 
 interface Props {
   armyUnit: ArmyUnit;
 }
 
 export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
-  const { calculateArmyUnitPoints, updateUnit } = useArmyCreationContext();
+  const { updateUnit, deleteUnit, calculateArmyUnitPoints } = useArmyCreationContext();
   const [quantityInput, setQuantityInput] = useState(`${armyUnit.quantity}`);
-  const [choseOption, setChoseOption] = useState(false);
 
   const changeUnitQuantity = (newQuantity?: number) => () => {
     const boxedQuantity = Math.max(Math.min(armyUnit.unit.maxQuantity, newQuantity || 0), armyUnit.unit.minQuantity);
-    updateUnit({ ...armyUnit, quantity: boxedQuantity });
+    armyUnit.quantity = boxedQuantity;
+    updateUnit(armyUnit);
     setQuantityInput(`${boxedQuantity}`);
   };
 
@@ -25,73 +26,46 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
     setQuantityInput(event.target.value);
   };
 
-  const addOption = (option: Option) => (withSubOption: boolean) => {
-    const chosenOptions: Set<ChosenOption> = new Set<ChosenOption>(armyUnit.chosenOptions).add({ option, withSubOption });
-    const options = new Set<Option>(armyUnit.unit.options);
-    options.delete(option);
-    updateUnit({ ...armyUnit, chosenOptions: chosenOptions, unit: { ...armyUnit.unit, options: options } });
-    if (options.size === 0) {
-      setChoseOption(false);
-    }
+  const onClickDelete = () => {
+    deleteUnit(armyUnit);
   };
 
-  const removeOption = (chosenOption: ChosenOption) => () => {
-    armyUnit.chosenOptions.delete(chosenOption);
-    armyUnit.unit.options.add(chosenOption.option);
-    updateUnit(armyUnit);
-  };
+  useEffect(() => {
+    setQuantityInput(`${armyUnit.quantity}`);
+  }, [armyUnit]);
 
   return (
     <>
-      <div>{armyUnit.unit.name}</div>
+      <div className={styles.UnitLineName}>
+        <Button onClick={onClickDelete}>
+          <Icon icon="Trash" />
+        </Button>
+        <span>{armyUnit.unit.name}</span>
+      </div>
       <div className={styles.UnitLineQuantity}>
         {armyUnit.unit.minQuantity === 1 ? (
           <span className={styles.UnitLineQuantityInput}>{armyUnit.quantity}</span>
         ) : (
           <>
-            <Button onClick={changeUnitQuantity(armyUnit.quantity - 1)}>-</Button>
+            <Button onClick={changeUnitQuantity(armyUnit.quantity - 1)} variant="round" data-testid="DecreaseUnitQuantityButton">
+              <Icon icon="Minus" />
+            </Button>
             <input
               className={styles.UnitLineQuantityInput}
               type="text"
               value={quantityInput}
               onChange={changeQuantityInput}
               onBlur={onInputBlur}
+              data-testid="UnitQuantityInput"
             />
-            <Button onClick={changeUnitQuantity(armyUnit.quantity + 1)}>+</Button>
+            <Button onClick={changeUnitQuantity(armyUnit.quantity + 1)} variant="round" data-testid="IncreaseUnitQuantityButton">
+              <Icon icon="Plus" />
+            </Button>
           </>
         )}
       </div>
-      <div className={styles.UnitLineOptions} key={armyUnit.chosenOptions.size}>
-        <Button onClick={() => setChoseOption(true)} disabled={armyUnit.unit.options.size === 0}>
-          +
-        </Button>
-        <span className={styles.UnitLineOptionsList}>
-          {Array.from(armyUnit.chosenOptions)
-            .sort((co1, co2) => co1.option.name.localeCompare(co2.option.name))
-            .sort((choseOption, _) => (choseOption.option.type === 'SINGLE' ? 1 : 0))
-            .map((chosenOption) => (
-              <span key={chosenOption.option.name} className={styles.Option}>
-                <Button onClick={removeOption(chosenOption)}>-</Button>
-                <span>{chosenOption.option.name}</span>
-                {chosenOption.withSubOption && chosenOption.option.subOption && <span> + {chosenOption.option.subOption.name}</span>}
-              </span>
-            ))}
-        </span>
-      </div>
+      <UnitLineOptions armyUnit={armyUnit} />
       <div>{calculateArmyUnitPoints(armyUnit)}</div>
-
-      {choseOption && (
-        <Modal onClickClose={() => setChoseOption(false)} title="Ajouter un équipement">
-          <div className={styles.AddOptionModal}>
-            {Array.from(armyUnit.unit.options)
-              .sort((o1, o2) => o1.name.localeCompare(o2.name))
-              .sort((option, _) => (option.type === 'SINGLE' ? 1 : 0))
-              .map((option) => (
-                <AddOptionLine option={option} key={option.name} onClickAdd={addOption(option)} />
-              ))}
-          </div>
-        </Modal>
-      )}
     </>
   );
 };

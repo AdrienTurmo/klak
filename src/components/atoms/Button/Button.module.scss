@@ -1,17 +1,22 @@
 .Button {
-  background-color: brown;
+  background-color: #a52a2a;
   font-weight: bold;
   color: white;
   border: none;
   padding: 5px;
-  box-shadow: 0 0 5px black, 0 0 3px black;
+  box-shadow: 1px 1px 1px black;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+
+  &.round {
+    border-radius: 50%;
+  }
 
   &:enabled:active {
-    box-shadow: none
+    box-shadow: 0 0 1px black;
   }
 
   &:disabled {

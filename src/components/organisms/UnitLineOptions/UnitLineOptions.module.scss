@@ -1,0 +1,31 @@
+.UnitLineOptions {
+  display: flex;
+  border: 2px solid red;
+  padding: 0;
+  gap: 10px;
+
+  .UnitLineOptionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+
+    .Option {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+
+      .RemoveButton {
+        height: 15px;
+      }
+    }
+  }
+}
+
+
+.AddOptionModal {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}

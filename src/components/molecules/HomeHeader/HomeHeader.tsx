@@ -5,7 +5,7 @@ import { Separator } from 'components/index';
 export const HomeHeader: React.FC = () => (
   <div className={styles.HomeHeader}>
     <div className={styles.Title} data-testid="HomeHeader">
-      Warhammer Army Maker
+      Kronstructeur de Larges Armées Kools
     </div>
     <Separator />
   </div>

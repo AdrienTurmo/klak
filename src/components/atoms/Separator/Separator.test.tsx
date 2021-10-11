@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { Separator } from './Separator';
 
 describe('<Separator />', () => {
-  test('it should mount', () => {
+  it('should mount', () => {
     render(<Separator />);
 
     const separator = screen.getByTestId('Separator');

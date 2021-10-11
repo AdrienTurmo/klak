@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
-import { Separator } from 'components/index';
+import { Icon, Separator } from 'components/index';
 
 interface Props {
   title?: string;
@@ -10,9 +10,12 @@ interface Props {
 
 export const Modal: React.FC<Props> = ({ title, onClickClose, children }) =>
   ReactDOM.createPortal(
-    <div className={styles.ModalOverlay} onClick={onClickClose}>
+    <div className={styles.ModalOverlay} onClick={onClickClose} data-testid="ModalOverlay">
       <div className={styles.ModalWrapper}>
-        <div className={styles.Modal} onClick={(event) => event.stopPropagation()}>
+        <div className={styles.Modal} onClick={(event) => event.stopPropagation()} data-testid="Modal">
+          <div className={styles.CloseIconContainer}>
+            <Icon icon="Close" className={styles.CloseIcon} onClick={onClickClose} />
+          </div>
           {title && (
             <div className={styles.ModalHeader}>
               <div>{title}</div>

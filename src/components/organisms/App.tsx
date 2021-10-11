@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styles from './App.module.scss';
-import { HomeHeader, CreateNewArmy } from 'components';
-import { ArmyCreation } from './ArmyCreation/ArmyCreation';
-import { ArmyCreationContextProvider } from './ArmyCreation/ArmyCreationContext';
+import { ArmyCreation, CreateNewArmy, HomeHeader } from 'components';
+import { ArmyCreationContextProvider } from 'contexts';
 
 export const App: React.FC = () => {
   const [army, setArmy] = useState<Army>();

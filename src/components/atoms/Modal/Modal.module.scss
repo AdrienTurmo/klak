@@ -21,7 +21,19 @@
       background: #fff;
       margin: auto;
       border-radius: 5px;
-      padding: 10px;
+      padding: 20px;
+
+      .CloseIconContainer {
+        position: relative;
+
+        .CloseIcon {
+          position: absolute;
+          top: -15px;
+          right: -15px;
+          height: 20px;
+          cursor: pointer;
+        }
+      }
 
       .ModalHeader {
         display: flex;

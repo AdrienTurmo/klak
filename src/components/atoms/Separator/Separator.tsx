@@ -6,4 +6,4 @@ interface Props {
   className?: string;
 }
 
-export const Separator: React.FC<Props> = ({ className }) => <div className={clsx(styles.Separator, className)} />;
+export const Separator: React.FC<Props> = ({ className }) => <div data-testid="Separator" className={clsx(styles.Separator, className)} />;

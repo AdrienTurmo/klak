@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styles from './ArmyCreation.module.scss';
-import { Button, Modal, Separator, UnitLine, useArmyCreationContext } from 'components';
+import { Button, Modal, Separator } from 'components';
+import { useArmyCreationContext } from 'contexts';
+import { UnitLine } from 'components';
 
 interface UnitCategory {
   type: UnitType;
@@ -41,7 +43,6 @@ export const ArmyCreation: React.FC = () => {
   const { addUnit, getUnits, getArmyUnitsForType, totalArmyPoints, getPointsForType } = useArmyCreationContext();
 
   const onClickAddUnit = (unit: Unit) => () => {
-    setCategoryOfUnitToAdd(undefined);
     addUnit(unit);
   };
 
@@ -52,7 +53,11 @@ export const ArmyCreation: React.FC = () => {
           <div key={unitCategory.type} className={styles.ArmyCategory}>
             <div className={styles.ArmyCategoryHeader}>
               <div className={styles.ArmyCategoryTitle}>{unitCategory.title}</div>
-              <Button className={styles.ArmyCategoryAddButton} onClick={() => setCategoryOfUnitToAdd(unitCategory)}>
+              <Button
+                className={styles.ArmyCategoryAddButton}
+                onClick={() => setCategoryOfUnitToAdd(unitCategory)}
+                data-testid={`AddUnitButton${unitCategory.type}`}
+              >
                 +
               </Button>
               <div>Nombres : {getArmyUnitsForType(unitCategory.type).length}</div>

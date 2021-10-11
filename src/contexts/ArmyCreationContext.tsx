@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
 
-interface ArmyCreationContextValue {
+export interface ArmyCreationContextValue {
   army: Army;
+  addUnit: (unit: Unit) => void;
+  updateUnit: (updatedArmyUnit: ArmyUnit) => void;
+  deleteUnit: (armyUnitToDelete: ArmyUnit) => void;
   getUnits: (type: UnitType) => Unit[];
   getArmyUnitsForType: (type: UnitType) => ArmyUnit[];
   getPointsForType: (type: UnitType) => number;
-  addUnit: (unit: Unit) => void;
   calculateArmyUnitPoints: (armyUnit: ArmyUnit) => number;
   totalArmyPoints: number;
-  updateUnit: (armyUnitToChange: ArmyUnit) => void;
 }
 
-const ArmyCreationContext = React.createContext<ArmyCreationContextValue>({
+export const ArmyCreationContext = React.createContext<ArmyCreationContextValue>({
   army: { name: 'No army', units: [] },
+  addUnit: () => null,
+  updateUnit: () => null,
+  deleteUnit: () => null,
   getUnits: () => [],
   getArmyUnitsForType: () => [],
   getPointsForType: () => 0,
-  addUnit: () => null,
   calculateArmyUnitPoints: () => 0,
   totalArmyPoints: 0,
-  updateUnit: () => null,
 });
 
 interface Props {
@@ -30,14 +32,14 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
   const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([]);
   const [id, setId] = useState(0);
   const addUnit = (unit: Unit) => {
-    setArmyUnits(
-      armyUnits.concat({
-        id: id,
-        unit: { ...unit },
-        quantity: unit.minQuantity,
-        chosenOptions: new Set<ChosenOption>(),
-      }),
-    );
+    armyUnits.push({
+      id: id,
+      unit: { ...unit },
+      quantity: unit.minQuantity,
+      availableOptions: new Set(unit.options),
+      chosenOptions: new Set<ChosenOption>(),
+    });
+    setArmyUnits([...armyUnits]);
     setId(id + 1);
   };
 
@@ -66,22 +68,28 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
 
   const updateUnit = (updatedUnit: ArmyUnit) => {
     const unitIndex = armyUnits.findIndex((armyUnit) => armyUnit.id === updatedUnit.id);
-    const start = armyUnits.slice(0, unitIndex);
-    const end = armyUnits.slice(unitIndex + 1);
-    setArmyUnits(start.concat({ ...updatedUnit }).concat(end));
+    armyUnits[unitIndex] = updatedUnit;
+    setArmyUnits([...armyUnits]);
+  };
+
+  const deleteUnit = (armyUnitToDelete: ArmyUnit) => {
+    const unitIndex = armyUnits.findIndex((armyUnit) => armyUnit.id === armyUnitToDelete.id);
+    armyUnits.splice(unitIndex, 1);
+    setArmyUnits([...armyUnits]);
   };
 
   return (
     <ArmyCreationContext.Provider
       value={{
         army,
+        addUnit,
+        updateUnit,
+        deleteUnit,
         getUnits,
         getArmyUnitsForType,
         getPointsForType,
-        addUnit,
         calculateArmyUnitPoints,
         totalArmyPoints,
-        updateUnit,
       }}
     >
       {children}
