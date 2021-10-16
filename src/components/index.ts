@@ -9,5 +9,7 @@ export { AddOptionLine } from './molecules/AddOptionLine/AddOptionLine';
 export { App } from './organisms/App';
 export { ArmyCreation } from './organisms/ArmyCreation/ArmyCreation';
 export { CreateNewArmy } from './organisms/CreateNewArmy/CreateNewArmy';
+export { ImportArmy } from './organisms/ImportArmy/ImportArmy';
 export { UnitLine } from './organisms/UnitLine/UnitLine';
+export { UnitLineMagicObjects } from './organisms/UnitLineMagicObjects/UnitLineMagicObjects';
 export { UnitLineOptions } from './organisms/UnitLineOptions/UnitLineOptions';

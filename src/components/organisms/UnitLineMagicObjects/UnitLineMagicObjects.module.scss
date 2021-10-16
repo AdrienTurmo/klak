@@ -1,0 +1,42 @@
+@import 'node_modules/react-tabs/style/react-tabs.scss';
+
+.UnitLineMagicObjects {
+  display: flex;
+  border: 2px solid red;
+  padding: 0;
+  gap: 10px;
+
+  .UnitLineMagicObjectsList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+
+    .MagicObject {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .RemoveButton {
+        height: 15px;
+      }
+
+      .MagicObjectType {
+        margin-left: auto;
+      }
+      .MagicObjectPoints {
+      }
+    }
+  }
+}
+
+.ModalAddObjectTabList {
+  margin: -2px 0 0;
+  border-bottom: 1px solid gray;
+  padding: 0;
+
+  .ModalAddObjectTab {
+      border-color: gray;
+  }
+}

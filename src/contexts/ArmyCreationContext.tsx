@@ -1,35 +1,46 @@
 import React, { useState } from 'react';
 
 export interface ArmyCreationContextValue {
+  version: string;
   army: Army;
   addUnit: (unit: Unit) => void;
   updateUnit: (updatedArmyUnit: ArmyUnit) => void;
   deleteUnit: (armyUnitToDelete: ArmyUnit) => void;
   getUnits: (type: UnitType) => Unit[];
   getArmyUnitsForType: (type: UnitType) => ArmyUnit[];
+  getAvailableObjectsForUnitAndType: (unit: Unit, type: MagicObjectType) => MagicObject[];
   getPointsForType: (type: UnitType) => number;
   calculateArmyUnitPoints: (armyUnit: ArmyUnit) => number;
   totalArmyPoints: number;
+  exportToJson: () => string;
 }
 
 export const ArmyCreationContext = React.createContext<ArmyCreationContextValue>({
-  army: { name: 'No army', units: [] },
+  version: '',
+  army: { name: 'No army', units: [], magicObjects: [], otherMagicObjectName: '' },
   addUnit: () => null,
   updateUnit: () => null,
   deleteUnit: () => null,
   getUnits: () => [],
   getArmyUnitsForType: () => [],
+  getAvailableObjectsForUnitAndType: () => [],
   getPointsForType: () => 0,
   calculateArmyUnitPoints: () => 0,
   totalArmyPoints: 0,
+  exportToJson: () => '',
 });
 
 interface Props {
+  version: string;
   army: Army;
+  initialArmyUnits: ArmyUnit[];
 }
 
-export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children }) => {
-  const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([]);
+const sumArray = (array: number[]): number => array.reduce((n, acc) => n + acc, 0);
+
+export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmyUnits, version, children }) => {
+  const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([...initialArmyUnits]);
+
   const [id, setId] = useState(0);
   const addUnit = (unit: Unit) => {
     armyUnits.push({
@@ -38,6 +49,7 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
       quantity: unit.minQuantity,
       availableOptions: new Set(unit.options),
       chosenOptions: new Set<ChosenOption>(),
+      chosenMagicObjects: [],
     });
     setArmyUnits([...armyUnits]);
     setId(id + 1);
@@ -46,15 +58,21 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
   const getUnits = (type: UnitType) => army.units.filter((unit) => unit.type === type);
   const getArmyUnitsForType = (type: UnitType) => armyUnits.filter((armyUnit) => armyUnit.unit.type === type);
 
+  const getAvailableObjectsForUnitAndType = (unit: Unit, type: MagicObjectType) =>
+    army.magicObjects
+      .filter((magicObject) => type === magicObject.type)
+      .filter((magicObject) => magicObject.points <= unit.maxMagicObjectPoints);
+
   const calculateArmyUnitPoints = (armyUnit: ArmyUnit) => {
-    const unitOptionsCost = Array.from(armyUnit.chosenOptions)
-      .map(
+    const unitOptionsCost = sumArray(
+      Array.from(armyUnit.chosenOptions).map(
         (chosenOption) =>
           (chosenOption.option.points + (chosenOption.withSubOption ? chosenOption.option.subOption?.points || 0 : 0)) *
           (chosenOption.option.type === 'SINGLE' ? 1 : armyUnit.quantity),
-      )
-      .reduce((p, c) => p + c, 0);
-    return armyUnit.unit.pointsByUnit * armyUnit.quantity + unitOptionsCost;
+      ),
+    );
+    const magicObjectsCost = sumArray(armyUnit.chosenMagicObjects.map((magicObject) => magicObject.points));
+    return armyUnit.unit.pointsByUnit * armyUnit.quantity + unitOptionsCost + magicObjectsCost;
   };
 
   const getPointsForType = (type: UnitType) =>
@@ -78,18 +96,26 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, children })
     setArmyUnits([...armyUnits]);
   };
 
+  const exportToJson = () => {
+    const armyJson = JSON.stringify({ version: version, armyName: army.name, armyUnits } as ArmyList);
+    return 'data:application/json;charset=utf-8,' + encodeURIComponent(armyJson);
+  };
+
   return (
     <ArmyCreationContext.Provider
       value={{
+        version,
         army,
         addUnit,
         updateUnit,
         deleteUnit,
         getUnits,
+        getAvailableObjectsForUnitAndType,
         getArmyUnitsForType,
         getPointsForType,
         calculateArmyUnitPoints,
         totalArmyPoints,
+        exportToJson,
       }}
     >
       {children}

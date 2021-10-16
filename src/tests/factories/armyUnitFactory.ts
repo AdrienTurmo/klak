@@ -7,6 +7,7 @@ const defaultArmyUnit: ArmyUnit = {
   quantity: 1,
   availableOptions: new Set<Option>(),
   chosenOptions: new Set<ChosenOption>(),
+  chosenMagicObjects: [],
 };
 
 export const buildArmyUnit = (armyUnitPartial?: Partial<ArmyUnit>): ArmyUnit => ({

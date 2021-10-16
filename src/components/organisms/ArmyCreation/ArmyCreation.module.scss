@@ -1,8 +1,18 @@
 .ArmyCreation {
-  padding: 20px;
+  padding: 5px 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  .ArmyCreationActions {
+
+  }
+
+  .ArmyCreationTitle {
+    font-size: 30px;
+    font-weight: bold;
+    align-self: center;
+  }
 
   .ArmyCategory {
     display: flex;
@@ -27,7 +37,7 @@
 
     .ArmyCategoryUnits {
       display: grid;
-      grid-template-columns: 20% 10% 30% 10%;
+      grid-template-columns: 20% 10% 25% 35% 10%;
 
       div {
         border: 1px solid black;
@@ -35,14 +45,15 @@
         border-left: none;
         padding: 10px;
 
-        &:nth-child(4n+1) {
+        &:nth-child(5n+1) {
           border-left: 1px solid black;
         }
 
         &:nth-child(1),
         &:nth-child(2),
         &:nth-child(3),
-        &:nth-child(4) {
+        &:nth-child(4),
+        &:nth-child(5) {
           border-top: 1px solid black;
           border-bottom: 2px solid black;
         }

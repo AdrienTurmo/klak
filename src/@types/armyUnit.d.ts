@@ -4,4 +4,5 @@ interface ArmyUnit {
   quantity: number;
   availableOptions: Set<Option>;
   chosenOptions: Set<ChosenOption>;
+  chosenMagicObjects: MagicObject[];
 }

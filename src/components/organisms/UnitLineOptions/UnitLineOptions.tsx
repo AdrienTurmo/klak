@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './UnitLineOptions.module.scss';
-import { AddOptionLine, Button, Modal, Icon } from 'components';
+import { AddOptionLine, Button, Icon, Modal } from 'components';
 import { useArmyCreationContext } from 'contexts';
 
 interface Props {

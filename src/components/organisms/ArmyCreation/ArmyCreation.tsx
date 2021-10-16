@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styles from './ArmyCreation.module.scss';
-import { Button, Modal, Separator } from 'components';
+import { Button, Modal, Separator, UnitLine } from 'components';
 import { useArmyCreationContext } from 'contexts';
-import { UnitLine } from 'components';
 
 interface UnitCategory {
   type: UnitType;
@@ -40,15 +39,31 @@ const unitCategories: UnitCategory[] = [
 
 export const ArmyCreation: React.FC = () => {
   const [categoryOfUnitToAdd, setCategoryOfUnitToAdd] = useState<UnitCategory>();
-  const { addUnit, getUnits, getArmyUnitsForType, totalArmyPoints, getPointsForType } = useArmyCreationContext();
+  const { addUnit, getUnits, getArmyUnitsForType, totalArmyPoints, getPointsForType, army, exportToJson, version } =
+    useArmyCreationContext();
 
   const onClickAddUnit = (unit: Unit) => () => {
     addUnit(unit);
   };
 
+  const downloadArmyList = () => {
+    const jsonData = exportToJson();
+
+    const exportFileDefaultName = `${army.name.replaceAll(' ', '_')}_${version}_s${new Date().toLocaleDateString()}.json`;
+
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', jsonData);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+  };
+
   return (
     <>
       <div className={styles.ArmyCreation} data-testid="ArmyCreation">
+        <div className={styles.ArmyCreationActions}>
+          <Button onClick={downloadArmyList}>Télécharger dans un fichier</Button>
+        </div>
+        <div className={styles.ArmyCreationTitle}>{army.name}</div>
         {unitCategories.map((unitCategory) => (
           <div key={unitCategory.type} className={styles.ArmyCategory}>
             <div className={styles.ArmyCategoryHeader}>
@@ -67,6 +82,7 @@ export const ArmyCreation: React.FC = () => {
               <div>Unité</div>
               <div>Quantité</div>
               <div>Options/Équipement</div>
+              <div>Object magiques</div>
               <div>Points</div>
               {getArmyUnitsForType(unitCategory.type).map((armyUnit, index) => (
                 <UnitLine armyUnit={armyUnit} key={index} />

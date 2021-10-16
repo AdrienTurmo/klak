@@ -6,26 +6,20 @@ import { AllArmies, Versions } from '_data/allArmies';
 type ArmyCreationStates = 'SELECT_VERSION' | 'SELECT-ARMY';
 
 interface Props {
-  onArmySelect: (army: Army) => void;
+  onArmySelect: (version: string, army: Army) => void;
 }
 
 export const CreateNewArmy: React.FC<Props> = ({ onArmySelect }) => {
+  const [version, setVersion] = useState('');
   const [openCreateArmy, setOpenCreateArmy] = useState(false);
   const [armyCreationState, setArmyCreationState] = useState<ArmyCreationStates>('SELECT_VERSION');
-  const [chosenVersion, setChosenVersion] = useState<Army[]>([]);
+  const [chosenVersionArmies, setChosenVersionArmies] = useState<Army[]>([]);
 
   const selectVersion = (version: string) => () => {
-    switch (version) {
-      case 'V6':
-        setChosenVersion(AllArmies.V6);
-        break;
-      case 'V7':
-        setChosenVersion(AllArmies.V7);
-        break;
-      case 'V8':
-        setChosenVersion(AllArmies.V8);
-        break;
-    }
+    const armiesOfVersion: Army[] | undefined = AllArmies.get(version);
+    if (!armiesOfVersion) return;
+    setVersion(version);
+    setChosenVersionArmies(armiesOfVersion);
     setArmyCreationState('SELECT-ARMY');
   };
 
@@ -42,14 +36,14 @@ export const CreateNewArmy: React.FC<Props> = ({ onArmySelect }) => {
   );
 
   const selectArmy = (army: Army) => () => {
-    onArmySelect(army);
+    onArmySelect(version, army);
     closeModal();
   };
 
   const ArmyChoice = (
     <>
       <div>Sélectionnez une armée</div>
-      {chosenVersion.map((army) => (
+      {chosenVersionArmies.map((army) => (
         <Button key={army.name} onClick={selectArmy(army)}>
           {army.name}
         </Button>
@@ -68,7 +62,7 @@ export const CreateNewArmy: React.FC<Props> = ({ onArmySelect }) => {
 
   const closeModal = () => {
     setArmyCreationState('SELECT_VERSION');
-    setChosenVersion([]);
+    setChosenVersionArmies([]);
     setOpenCreateArmy(false);
   };
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './UnitLine.module.scss';
 import { Button, Icon, UnitLineOptions } from 'components';
 import { useArmyCreationContext } from 'contexts';
+import { UnitLineMagicObjects } from 'components/organisms/UnitLineMagicObjects/UnitLineMagicObjects';
 
 interface Props {
   armyUnit: ArmyUnit;
@@ -65,6 +66,7 @@ export const UnitLine: React.FC<Props> = ({ armyUnit }) => {
         )}
       </div>
       <UnitLineOptions armyUnit={armyUnit} />
+      <UnitLineMagicObjects armyUnit={armyUnit} />
       <div>{calculateArmyUnitPoints(armyUnit)}</div>
     </>
   );

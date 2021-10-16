@@ -5,4 +5,6 @@ interface Unit {
   maxQuantity: number;
   pointsByUnit: number;
   options: Set<Option>;
+  allowedMagicObjects: MagicObjectType[];
+  maxMagicObjectPoints: number;
 }
