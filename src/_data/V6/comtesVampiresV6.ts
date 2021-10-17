@@ -1,9 +1,9 @@
-export const ComptesVampiresV6: Army = {
-  name: 'Comptes Vampires',
+export const ComtesVampiresV6: Army = {
+  name: 'Comtes Vampires',
   units: [
     {
       type: 'LORD',
-      name: 'Compte Vampire',
+      name: 'Comte Vampire',
       minQuantity: 1,
       maxQuantity: 1,
       pointsByUnit: 205,
@@ -24,7 +24,7 @@ export const ComptesVampiresV6: Army = {
     },
     {
       type: 'HERO',
-      name: 'Compte Nouveau-né',
+      name: 'Comte Nouveau-né',
       minQuantity: 1,
       maxQuantity: 1,
       pointsByUnit: 80,
@@ -46,28 +46,39 @@ export const ComptesVampiresV6: Army = {
       minQuantity: 10,
       maxQuantity: 40,
       pointsByUnit: 6,
-      options: new Set<Option>([{ name: 'Musicien', points: 6, type: 'SINGLE' }]),
+      options: new Set<Option>([
+        { name: 'Porte-étendard', points: 10, type: 'SINGLE' },
+        { name: 'Musicien', points: 5, type: 'SINGLE' },
+      ]),
       allowedMagicObjects: [],
       maxMagicObjectPoints: 0,
     },
     {
       type: 'BASE',
-      name: 'Squellettes',
+      name: 'Squelettes',
       minQuantity: 10,
       maxQuantity: 40,
       pointsByUnit: 8,
-      options: new Set<Option>([{ name: 'Musicien', points: 6, type: 'SINGLE' }]),
+      options: new Set<Option>([
+        { name: 'Capitaine Squelette', points: 10, type: 'SINGLE' },
+        { name: 'Porte-étendard', points: 10, type: 'SINGLE' },
+        { name: 'Musicien', points: 5, type: 'SINGLE' },
+        { name: 'Armures légères', points: 2, type: 'BY_UNIT' },
+        { name: 'Lances', points: 1, type: 'BY_UNIT' },
+      ]),
       allowedMagicObjects: [],
       maxMagicObjectPoints: 0,
     },
     {
       type: 'SPECIAL',
-      name: 'Garde des cryptes',
+      name: 'Gardes des Cryptes',
       minQuantity: 10,
       maxQuantity: 30,
       pointsByUnit: 12,
       options: new Set<Option>([
-        { name: 'Champion', points: 12, type: 'SINGLE' },
+        { name: 'Maître des Cryptes', points: 12, type: 'SINGLE' },
+        { name: 'Porte-étendard', points: 12, type: 'SINGLE' },
+        { name: 'Musicien', points: 6, type: 'SINGLE' },
         { name: 'Boucliers', points: 1, type: 'BY_UNIT' },
         { name: 'Hallebarde', points: 2, type: 'BY_UNIT' },
       ]),

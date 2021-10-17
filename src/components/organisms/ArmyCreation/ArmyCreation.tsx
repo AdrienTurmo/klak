@@ -12,17 +12,17 @@ interface UnitCategory {
 const unitCategories: UnitCategory[] = [
   {
     type: 'BASE',
-    title: 'Unitées de bases',
+    title: 'Unités de base',
     modalTitle: 'Ajouter une unité de base',
   },
   {
     type: 'SPECIAL',
-    title: 'Unitées spéciales',
+    title: 'Unités spéciales',
     modalTitle: 'Ajouter une unité spéciale',
   },
   {
     type: 'RARE',
-    title: 'Unitées rares',
+    title: 'Unités rares',
     modalTitle: 'Ajouter une unité rare',
   },
   {
@@ -81,7 +81,7 @@ export const ArmyCreation: React.FC = () => {
             <div className={styles.ArmyCategoryUnits}>
               <div>Unité</div>
               <div>Quantité</div>
-              <div>Options/Équipement</div>
+              <div>Options/Équipements</div>
               <div>Object magiques</div>
               <div>Points</div>
               {getArmyUnitsForType(unitCategory.type).map((armyUnit, index) => (
