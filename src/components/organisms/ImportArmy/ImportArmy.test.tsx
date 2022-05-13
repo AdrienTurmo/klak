@@ -7,7 +7,7 @@ describe('<ImportArmy />', () => {
   it('should mount', () => {
     render(<ImportArmy onArmyImport={() => null} />);
 
-    const importArmy = screen.getByTestId('ImportArmy');
+    const importArmy = screen.getByText("Importer une liste d'armée");
 
     expect(importArmy).toBeInTheDocument();
   });

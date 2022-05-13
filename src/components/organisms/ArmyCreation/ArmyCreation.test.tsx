@@ -10,9 +10,9 @@ describe('<ArmyCreation />', () => {
     renderWithArmyCreationContext(<ArmyCreation />);
 
     expect(screen.getByTestId('ArmyCreation')).toBeInTheDocument();
-    expect(screen.getByText('Unitées de bases')).toBeInTheDocument();
-    expect(screen.getByText('Unitées spéciales')).toBeInTheDocument();
-    expect(screen.getByText('Unitées rares')).toBeInTheDocument();
+    expect(screen.getByText('Unités de base')).toBeInTheDocument();
+    expect(screen.getByText('Unités spéciales')).toBeInTheDocument();
+    expect(screen.getByText('Unités rares')).toBeInTheDocument();
     expect(screen.getByText('Héros')).toBeInTheDocument();
     expect(screen.getByText('Seigneurs')).toBeInTheDocument();
   });

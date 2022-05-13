@@ -28,7 +28,7 @@ export const UnitLineOptions: React.FC<Props> = ({ armyUnit }) => {
 
   return (
     <>
-      <div className={styles.UnitLineOptions} key={armyUnit.chosenOptions.size}>
+      <div className={styles.UnitLineOptions} key={armyUnit.chosenOptions.size} data-testid="UnitLineOptions">
         <Button onClick={() => setChoseOptions(true)} disabled={armyUnit.availableOptions.size === 0}>
           <Icon icon="Plus" />
         </Button>

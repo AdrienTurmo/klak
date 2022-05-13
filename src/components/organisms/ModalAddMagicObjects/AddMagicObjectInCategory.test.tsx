@@ -5,7 +5,7 @@ import { AddMagicObjectInCategory } from 'components/organisms/ModalAddMagicObje
 
 describe('<ModalAddMagicObjects />', () => {
   it('should mount', () => {
-    render(<AddMagicObjectInCategory />);
+    render(<AddMagicObjectInCategory armyUnit={{} as ArmyUnit} magicObjects={[]} />);
 
     const modalAddMagicObjects = screen.getByTestId('ModalAddMagicObjects');
 
