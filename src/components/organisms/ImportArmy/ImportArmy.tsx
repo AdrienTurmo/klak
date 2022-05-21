@@ -24,7 +24,7 @@ export const ImportArmy: React.FC<Props> = ({ onArmyImport }) => {
     armyFile.text().then((data) => {
       const armyList = JSON.parse(data) as ArmyList;
 
-      const armiesForVersion: Army[] | undefined = AllArmies.get(armyList.version);
+      const armiesForVersion: Army[] | undefined = AllArmies[armyList.version];
       if (!armiesForVersion) {
         alert(`Version ${armyList.version} non trouvée`);
         return;

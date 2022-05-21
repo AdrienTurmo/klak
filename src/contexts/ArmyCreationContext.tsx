@@ -34,13 +34,6 @@ export const ArmyCreationContext = React.createContext<ArmyCreationContextValue>
 
 const sumArray = (array: number[]): number => array.reduce((n, acc) => n + acc, 0);
 
-const emptyArmy: Army = {
-  name: '',
-  units: [],
-  magicObjects: [],
-  otherMagicObjectName: '',
-};
-
 interface Props {
   version: Version;
   army: Army;
@@ -49,8 +42,8 @@ interface Props {
 
 export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmyUnits, version, children }) => {
   const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([...initialArmyUnits]);
-  const mercenariesArmy: Army = Mercenaries.get(version) ?? emptyArmy;
-  const commonMagicObjets = AllCommonMagicObjects.get(version) ?? [];
+  const mercenariesArmy: Army = Mercenaries[version];
+  const commonMagicObjets = AllCommonMagicObjects[version];
 
   const [id, setId] = useState(0);
   const addUnit = (unit: Unit) => {

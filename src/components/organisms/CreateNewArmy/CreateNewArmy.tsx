@@ -20,7 +20,7 @@ export const CreateNewArmy: React.FC<Props> = ({ onArmySelect }) => {
           {Versions.map((version) => (
             <div key={version} className={styles.ArmiesList}>
               <div>{version}</div>
-              {AllArmies.get(version)?.map((army) => (
+              {AllArmies[version].map((army) => (
                 <Button
                   key={army.name}
                   onClick={() => {
