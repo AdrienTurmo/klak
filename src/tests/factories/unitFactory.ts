@@ -7,6 +7,7 @@ const defaultUnit: Unit = {
   options: new Set<Option>(),
   allowedMagicObjects: [],
   maxMagicObjectPoints: 0,
+  costs: new Map<UnitType, number>([['BASE', 1]]),
 };
 
 export const buildUnit = (unitPartial?: Partial<Unit>): Unit => ({

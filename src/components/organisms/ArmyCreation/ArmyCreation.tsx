@@ -39,8 +39,17 @@ const unitCategories: UnitCategory[] = [
 
 export const ArmyCreation: React.FC = () => {
   const [categoryOfUnitToAdd, setCategoryOfUnitToAdd] = useState<UnitCategory>();
-  const { addUnit, getUnits, getArmyUnitsForType, totalArmyPoints, getPointsForType, army, exportToJson, version } =
-    useArmyCreationContext();
+  const {
+    addUnit,
+    getUnitsToChooseFrom,
+    getChosenArmyUnitsForType,
+    totalArmyPoints,
+    getPointsForType,
+    getUnitTypeCost,
+    army,
+    exportToJson,
+    version,
+  } = useArmyCreationContext();
 
   const onClickAddUnit = (unit: Unit) => () => {
     addUnit(unit);
@@ -75,7 +84,7 @@ export const ArmyCreation: React.FC = () => {
               >
                 +
               </Button>
-              <div>Nombres : {getArmyUnitsForType(unitCategory.type).length}</div>
+              <div>Nombres : {getUnitTypeCost(unitCategory.type)}</div>
               <div>Points : {getPointsForType(unitCategory.type)}</div>
             </div>
             <div className={styles.ArmyCategoryUnits}>
@@ -84,7 +93,7 @@ export const ArmyCreation: React.FC = () => {
               <div>Options/Équipements</div>
               <div>Object magiques</div>
               <div>Points</div>
-              {getArmyUnitsForType(unitCategory.type).map((armyUnit, index) => (
+              {getChosenArmyUnitsForType(unitCategory.type).map((armyUnit, index) => (
                 <UnitLine armyUnit={armyUnit} key={index} />
               ))}
             </div>
@@ -99,7 +108,7 @@ export const ArmyCreation: React.FC = () => {
         <Modal onClickClose={() => setCategoryOfUnitToAdd(undefined)} title={categoryOfUnitToAdd.modalTitle}>
           <div className={styles.AddUnitModal}>
             <div className={styles.AddUnitModalTitle}>Unité à ajouter</div>
-            {getUnits(categoryOfUnitToAdd.type).map((unit) => (
+            {getUnitsToChooseFrom(categoryOfUnitToAdd.type).map((unit) => (
               <Button className={styles.AddUnitModalButton} key={unit.name} onClick={onClickAddUnit(unit)}>
                 {unit.name}
               </Button>

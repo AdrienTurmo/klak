@@ -19,7 +19,7 @@ describe('<ArmyCreation />', () => {
 
   it('should open modal to add unit when clicking on add button', () => {
     const getUnitsMock = () => [buildUnit({ name: 'unitName' })];
-    renderWithArmyCreationContext(<ArmyCreation />, { getUnits: getUnitsMock });
+    renderWithArmyCreationContext(<ArmyCreation />, { getUnitsToChooseFrom: getUnitsMock });
 
     screen.getByTestId('AddUnitButtonBASE').click();
 
@@ -31,7 +31,7 @@ describe('<ArmyCreation />', () => {
     const unit = buildUnit({ name: 'unitName' });
     const getUnitsMock = () => [unit];
     const addUnitMock = jest.fn();
-    renderWithArmyCreationContext(<ArmyCreation />, { getUnits: getUnitsMock, addUnit: addUnitMock });
+    renderWithArmyCreationContext(<ArmyCreation />, { getUnitsToChooseFrom: getUnitsMock, addUnit: addUnitMock });
 
     screen.getByTestId('AddUnitButtonBASE').click();
     screen.getByText('unitName').click();

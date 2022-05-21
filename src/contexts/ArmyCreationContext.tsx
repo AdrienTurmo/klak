@@ -8,10 +8,11 @@ export interface ArmyCreationContextValue {
   addUnit: (unit: Unit) => void;
   updateUnit: (updatedArmyUnit: ArmyUnit) => void;
   deleteUnit: (armyUnitToDelete: ArmyUnit) => void;
-  getUnits: (type: UnitType) => Unit[];
-  getArmyUnitsForType: (type: UnitType) => ArmyUnit[];
+  getUnitsToChooseFrom: (type: UnitType) => Unit[];
   getAvailableObjectsForUnitAndType: (unit: Unit, type: MagicObjectType) => MagicObject[];
+  getChosenArmyUnitsForType: (type: UnitType) => ArmyUnit[];
   getPointsForType: (type: UnitType) => number;
+  getUnitTypeCost: (type: UnitType) => number;
   calculateArmyUnitPoints: (armyUnit: ArmyUnit) => number;
   totalArmyPoints: number;
   exportToJson: () => string;
@@ -23,10 +24,11 @@ export const ArmyCreationContext = React.createContext<ArmyCreationContextValue>
   addUnit: () => null,
   updateUnit: () => null,
   deleteUnit: () => null,
-  getUnits: () => [],
-  getArmyUnitsForType: () => [],
+  getUnitsToChooseFrom: () => [],
+  getChosenArmyUnitsForType: () => [],
   getAvailableObjectsForUnitAndType: () => [],
   getPointsForType: () => 0,
+  getUnitTypeCost: () => 0,
   calculateArmyUnitPoints: () => 0,
   totalArmyPoints: 0,
   exportToJson: () => '',
@@ -59,14 +61,15 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmy
     setId(id + 1);
   };
 
-  const getUnits = (type: UnitType) => army.units.concat(mercenariesArmy.units).filter((unit) => unit.type === type);
-  const getArmyUnitsForType = (type: UnitType) => armyUnits.filter((armyUnit) => armyUnit.unit.type === type);
+  const getUnitsToChooseFrom = (type: UnitType) => army.units.concat(mercenariesArmy.units).filter((unit) => unit.type === type);
 
   const getAvailableObjectsForUnitAndType = (unit: Unit, type: MagicObjectType) =>
     army.magicObjects
       .concat(commonMagicObjets)
       .filter((magicObject) => type === magicObject.type)
       .filter((magicObject) => magicObject.points <= unit.maxMagicObjectPoints);
+
+  const getChosenArmyUnitsForType = (type: UnitType) => armyUnits.filter((armyUnit) => armyUnit.unit.type === type);
 
   const calculateArmyUnitPoints = (armyUnit: ArmyUnit) => {
     const unitOptionsCost = sumArray(
@@ -81,9 +84,11 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmy
   };
 
   const getPointsForType = (type: UnitType) =>
-    getArmyUnitsForType(type)
+    getChosenArmyUnitsForType(type)
       .map((armyUnit) => calculateArmyUnitPoints(armyUnit))
       .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+  const getUnitTypeCost = (type: UnitType) => sumArray(armyUnits.map((armyUnit) => armyUnit.unit.costs.get(type) ?? 0));
 
   const totalArmyPoints = armyUnits
     .map((armyUnit) => calculateArmyUnitPoints(armyUnit))
@@ -114,10 +119,11 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmy
         addUnit,
         updateUnit,
         deleteUnit,
-        getUnits,
+        getUnitsToChooseFrom,
         getAvailableObjectsForUnitAndType,
-        getArmyUnitsForType,
+        getChosenArmyUnitsForType,
         getPointsForType,
+        getUnitTypeCost,
         calculateArmyUnitPoints,
         totalArmyPoints,
         exportToJson,

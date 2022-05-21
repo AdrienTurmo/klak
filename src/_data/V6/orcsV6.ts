@@ -1,5 +1,5 @@
 export const OrcsV6: Army = {
-  name: 'Orcs et Gobelins',
+  name: 'Comtes Vampires',
   units: [
     {
       type: 'LORD',
@@ -7,6 +7,10 @@ export const OrcsV6: Army = {
       minQuantity: 1,
       maxQuantity: 1,
       pointsByUnit: 205,
+      costs: new Map<UnitType, number>([
+        ['LORD', 1],
+        ['HERO', 1],
+      ]),
       options: new Set<Option>([
         { name: 'Cauchemar', points: 12, type: 'SINGLE', subOption: { name: 'Carapaçon', points: 6 } },
         { name: 'Arme Lourde', points: 6, type: 'SINGLE' },
@@ -29,6 +33,7 @@ export const OrcsV6: Army = {
       maxQuantity: 1,
       pointsByUnit: 80,
       options: new Set<Option>([{ name: 'Cauchemar', points: 8, type: 'SINGLE' }]),
+      costs: new Map<UnitType, number>([['HERO', 1]]),
       allowedMagicObjects: [
         'Armes magiques',
         'Armures magiques',
@@ -46,6 +51,7 @@ export const OrcsV6: Army = {
       minQuantity: 10,
       maxQuantity: 40,
       pointsByUnit: 6,
+      costs: new Map<UnitType, number>([['BASE', 1]]),
       options: new Set<Option>([
         { name: 'Porte-étendard', points: 10, type: 'SINGLE' },
         { name: 'Musicien', points: 5, type: 'SINGLE' },
@@ -59,6 +65,7 @@ export const OrcsV6: Army = {
       minQuantity: 10,
       maxQuantity: 40,
       pointsByUnit: 8,
+      costs: new Map<UnitType, number>([['BASE', 1]]),
       options: new Set<Option>([
         { name: 'Capitaine Squelette', points: 10, type: 'SINGLE' },
         { name: 'Porte-étendard', points: 10, type: 'SINGLE' },
@@ -75,6 +82,7 @@ export const OrcsV6: Army = {
       minQuantity: 10,
       maxQuantity: 30,
       pointsByUnit: 12,
+      costs: new Map<UnitType, number>([['SPECIAL', 1]]),
       options: new Set<Option>([
         { name: 'Maître des Cryptes', points: 12, type: 'SINGLE' },
         { name: 'Porte-étendard', points: 12, type: 'SINGLE' },
@@ -90,6 +98,7 @@ export const OrcsV6: Army = {
       name: 'Carosse Noir',
       minQuantity: 1,
       maxQuantity: 1,
+      costs: new Map<UnitType, number>([['RARE', 2]]),
       pointsByUnit: 200,
       options: new Set<Option>(),
       allowedMagicObjects: [],
