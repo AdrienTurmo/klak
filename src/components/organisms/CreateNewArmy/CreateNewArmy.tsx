@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styles from './CreateNewArmy.module.scss';
 import { Button } from 'components';
-import { AllArmies, Versions } from '_data/allArmies';
+import { AllArmies } from '_data/allArmies';
+import { Versions } from '_data/versions';
 
 interface Props {
-  onArmySelect: (version: string, army: Army) => void;
+  onArmySelect: (version: Version, army: Army) => void;
 }
 
 export const CreateNewArmy: React.FC<Props> = ({ onArmySelect }) => {

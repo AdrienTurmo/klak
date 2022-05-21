@@ -3,7 +3,7 @@ import { ArmyCreationContext, ArmyCreationContextValue } from 'contexts';
 import { render, RenderResult } from '@testing-library/react';
 
 const defaultValue: ArmyCreationContextValue = {
-  version: '',
+  version: 'V6',
   army: { name: 'No army', units: [], magicObjects: [], otherMagicObjectName: '' },
   addUnit: () => null,
   updateUnit: () => null,

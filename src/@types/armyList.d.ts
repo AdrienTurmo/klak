@@ -1,5 +1,5 @@
 interface ArmyList {
-  version: string;
+  version: Version;
   armyName: string;
   armyUnits: ArmyUnit[];
 }

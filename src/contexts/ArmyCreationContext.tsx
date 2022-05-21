@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Mercenaries } from '_data/mercenaries';
 
 export interface ArmyCreationContextValue {
-  version: string;
+  version: Version;
   army: Army;
   addUnit: (unit: Unit) => void;
   updateUnit: (updatedArmyUnit: ArmyUnit) => void;
@@ -16,7 +17,7 @@ export interface ArmyCreationContextValue {
 }
 
 export const ArmyCreationContext = React.createContext<ArmyCreationContextValue>({
-  version: '',
+  version: 'V6',
   army: { name: 'No army', units: [], magicObjects: [], otherMagicObjectName: '' },
   addUnit: () => null,
   updateUnit: () => null,
@@ -30,16 +31,24 @@ export const ArmyCreationContext = React.createContext<ArmyCreationContextValue>
   exportToJson: () => '',
 });
 
+const sumArray = (array: number[]): number => array.reduce((n, acc) => n + acc, 0);
+
+const emptyArmy: Army = {
+  name: '',
+  units: [],
+  magicObjects: [],
+  otherMagicObjectName: '',
+};
+
 interface Props {
-  version: string;
+  version: Version;
   army: Army;
   initialArmyUnits: ArmyUnit[];
 }
 
-const sumArray = (array: number[]): number => array.reduce((n, acc) => n + acc, 0);
-
 export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmyUnits, version, children }) => {
   const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([...initialArmyUnits]);
+  const mercenariesArmy: Army = Mercenaries.get(version) ?? emptyArmy;
 
   const [id, setId] = useState(0);
   const addUnit = (unit: Unit) => {
@@ -55,7 +64,7 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmy
     setId(id + 1);
   };
 
-  const getUnits = (type: UnitType) => army.units.filter((unit) => unit.type === type);
+  const getUnits = (type: UnitType) => army.units.concat(mercenariesArmy.units).filter((unit) => unit.type === type);
   const getArmyUnitsForType = (type: UnitType) => armyUnits.filter((armyUnit) => armyUnit.unit.type === type);
 
   const getAvailableObjectsForUnitAndType = (unit: Unit, type: MagicObjectType) =>

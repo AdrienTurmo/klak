@@ -4,7 +4,7 @@ import styles from './ImportArmy.module.scss';
 import { AllArmies } from '_data/allArmies';
 
 interface Props {
-  onArmyImport: (version: string, army: Army, armyUnit: ArmyUnit[]) => void;
+  onArmyImport: (version: Version, army: Army, armyUnit: ArmyUnit[]) => void;
 }
 
 export const ImportArmy: React.FC<Props> = ({ onArmyImport }) => {

@@ -4,16 +4,16 @@ import { ArmyCreation, CreateNewArmy, HomeHeader, ImportArmy } from 'components'
 import { ArmyCreationContextProvider } from 'contexts';
 
 export const App: React.FC = () => {
-  const [version, setVersion] = useState('');
+  const [version, setVersion] = useState<Version>();
   const [army, setArmy] = useState<Army>();
   const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([]);
 
-  const onNewArmy = (version: string, army: Army) => {
+  const onNewArmy = (version: Version, army: Army) => {
     setVersion(version);
     setArmy(army);
   };
 
-  const onArmyImport = (version: string, army: Army, importedArmyUnits: ArmyUnit[]) => {
+  const onArmyImport = (version: Version, army: Army, importedArmyUnits: ArmyUnit[]) => {
     setArmyUnits(importedArmyUnits);
     onNewArmy(version, army);
   };
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
           <ImportArmy onArmyImport={onArmyImport} />
         </>
       )}
-      {army && (
+      {army && version && (
         <ArmyCreationContextProvider version={version} army={army} initialArmyUnits={armyUnits}>
           <ArmyCreation />
         </ArmyCreationContextProvider>
