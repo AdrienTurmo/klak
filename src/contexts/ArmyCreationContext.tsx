@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mercenaries } from '_data/mercenaries';
+import { AllCommonMagicObjects } from '_data/allCommonMagicObjects';
 
 export interface ArmyCreationContextValue {
   version: Version;
@@ -49,6 +50,7 @@ interface Props {
 export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmyUnits, version, children }) => {
   const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([...initialArmyUnits]);
   const mercenariesArmy: Army = Mercenaries.get(version) ?? emptyArmy;
+  const commonMagicObjets = AllCommonMagicObjects.get(version) ?? [];
 
   const [id, setId] = useState(0);
   const addUnit = (unit: Unit) => {
@@ -69,6 +71,7 @@ export const ArmyCreationContextProvider: React.FC<Props> = ({ army, initialArmy
 
   const getAvailableObjectsForUnitAndType = (unit: Unit, type: MagicObjectType) =>
     army.magicObjects
+      .concat(commonMagicObjets)
       .filter((magicObject) => type === magicObject.type)
       .filter((magicObject) => magicObject.points <= unit.maxMagicObjectPoints);
 
