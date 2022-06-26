@@ -27,8 +27,8 @@ describe('<CreateNewArmy />', () => {
     render(<CreateNewArmy onArmySelect={onArmySelectMock} />);
 
     screen.getByText("Créer une liste d'armée").click();
-    screen.getAllByText(AllArmies.get('V6')?.values().next().value.name)[0].click();
+    screen.getAllByText(AllArmies.V6.values().next().value.name)[0].click();
 
-    expect(onArmySelectMock).toHaveBeenCalledWith('V6', AllArmies.get('V6')?.values().next().value);
+    expect(onArmySelectMock).toHaveBeenCalledWith('V6', AllArmies.V6.values().next().value);
   });
 });
