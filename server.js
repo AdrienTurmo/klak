@@ -15,6 +15,9 @@ const app = express()
 
 db.toto('hello');
 
+console.log('gettingArmy');
+db.getArmy('CVV6');
+
 const io = new Server(app, {
   cors: {
     origin: '*',

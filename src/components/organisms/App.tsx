@@ -3,6 +3,7 @@ import styles from './App.module.scss';
 import { ArmyCreation, CreateNewArmy, HomeHeader, ImportArmy } from 'components';
 import { ArmyCreationContextProvider } from 'contexts';
 import { io } from 'socket.io-client';
+import { ComtesVampiresV6 } from '_data/V6/comtesVampiresV6';
 
 const HOST = window.location.origin.replace(/^http/, 'ws');
 const socket = io(HOST);
@@ -27,7 +28,30 @@ export const App: React.FC = () => {
   };
 
   const emitTruc = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const replacer = (key, value) => {
+      if (value instanceof Map) {
+        return {
+          dataType: 'Map',
+          value: Array.from(value.entries()), // or with spread: value: [...value]
+        };
+      } else {
+        return value;
+      }
+    };
+
     socket.emit('TOTOTO');
+
+    const armyJson = JSON.stringify(ComtesVampiresV6, replacer);
+    const jsondata = 'data:application/json;charset=utf-8,' + encodeURIComponent(armyJson);
+
+    const exportFileDefaultName = `toto_${version}_s${new Date().toLocaleDateString()}.json`;
+
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', jsondata);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
   };
 
   socket.on('RETURNTOSENDER', (data) => {

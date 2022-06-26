@@ -5,7 +5,7 @@ interface Unit {
   maxQuantity: number;
   pointsByUnit: number;
   costs: Map<UnitType, number>;
-  options: Set<Option>;
+  options: Array<Option>;
   allowedMagicObjects: MagicObjectType[];
   maxMagicObjectPoints: number;
 }

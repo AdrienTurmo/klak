@@ -4,7 +4,7 @@ const defaultUnit: Unit = {
   pointsByUnit: 6,
   minQuantity: 1,
   maxQuantity: 1,
-  options: new Set<Option>(),
+  options: [],
   allowedMagicObjects: [],
   maxMagicObjectPoints: 0,
   costs: new Map<UnitType, number>([['BASE', 1]]),
