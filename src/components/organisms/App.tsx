@@ -30,9 +30,13 @@ export const App: React.FC = () => {
     socket.emit('TOTOTO');
   };
 
+  socket.on('RETURNTOSENDER', (data) => {
+    console.log(data);
+  });
+
   return (
     <div className={styles.AppContainer}>
-      <button onClick={emitTruc}>CLICK ME</button>
+      <button onClick={emitTruc}>CLICK ME sdfgdf</button>
       <HomeHeader />
       {!army && (
         <>

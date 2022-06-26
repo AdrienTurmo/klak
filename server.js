@@ -27,5 +27,8 @@ io.on('connection', (socket) => {
 
   socket.on('TOTOTO', () => {
     console.log('TOTOTO');
+    socket.emit('RETURNTOSENDER', {
+      data: 'ploup',
+    });
   });
 });
