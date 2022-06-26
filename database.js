@@ -11,9 +11,9 @@ const client = new Client({
 
 client.connect();
 
-const toto = () =>
+const toto = (truc) =>
   client.query('SELECT * from bipou where id = 1').then((response) => {
-    console.log(response.rows);
+    console.log(response.rows, truc);
   });
 
 module.exports = {

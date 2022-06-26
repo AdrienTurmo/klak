@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import styles from './App.module.scss';
 import { ArmyCreation, CreateNewArmy, HomeHeader, ImportArmy } from 'components';
 import { ArmyCreationContextProvider } from 'contexts';
+import { io } from 'socket.io-client';
+
+const HOST = window.location.origin.replace(/^http/, 'ws');
+const socket = io(HOST);
 
 export const App: React.FC = () => {
+  socket.connect();
+  socket.emit('TOTOTO');
+  console.log('halo');
+
   const [version, setVersion] = useState<Version>();
   const [army, setArmy] = useState<Army>();
   const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([]);
@@ -18,8 +26,13 @@ export const App: React.FC = () => {
     onNewArmy(version, army);
   };
 
+  const emitTruc = () => {
+    socket.emit('TOTOTO');
+  };
+
   return (
     <div className={styles.AppContainer}>
+      <button onClick={emitTruc}>CLICK ME</button>
       <HomeHeader />
       {!army && (
         <>
