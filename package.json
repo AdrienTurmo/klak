@@ -3,7 +3,8 @@
   "version": "0.3.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts build && node server.js",
+    "start": "node server.js",
+    "build & start": "react-scripts build && node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "prettier": "prettier --config .prettierrc \"src/**/*.{js,jsx,ts,tsx}\" --write"
