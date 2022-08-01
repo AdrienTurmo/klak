@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 3006;
 const db = require('./database');
 
 const app = express()
-  .use(express.static(__dirname + './build'))
-  .use((req, res) => res.sendFile(__dirname + '/build/index.html'))
+  .use(express.static('./build'))
+  .use((req, res) => res.sendFile('/build/index.html'))
   .listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
   });
