@@ -3,15 +3,12 @@ import styles from './App.module.scss';
 import { ArmyCreation, CreateNewArmy, HomeHeader, ImportArmy } from 'components';
 import { ArmyCreationContextProvider } from 'contexts';
 import { io } from 'socket.io-client';
-import { ComtesVampiresV6 } from '_data/V6/comtesVampiresV6';
 
 const HOST = window.location.origin.replace(/^http/, 'ws');
 const socket = io(HOST);
 
 export const App: React.FC = () => {
   socket.connect();
-  socket.emit('TOTOTO');
-  console.log('halo');
 
   const [version, setVersion] = useState<Version>();
   const [army, setArmy] = useState<Army>();
@@ -31,10 +28,6 @@ export const App: React.FC = () => {
   const emitTruc = () => {
     socket.emit('GET_ARMY', 'CVV6');
   };
-
-  socket.on('RETURNTOSENDER', (data) => {
-    console.log(data);
-  });
 
   socket.on('GOT_ARMY', (armyToto: Army) => {
     console.log('armyToto', armyToto);

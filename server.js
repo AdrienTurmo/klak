@@ -13,11 +13,6 @@ const app = express()
     console.log(`Server is listening on port ${PORT}`);
   });
 
-db.toto('hello');
-
-// console.log('gettingArmy');
-// db.getArmy('CVV6');
-
 const io = new Server(app, {
   cors: {
     origin: '*',
@@ -25,16 +20,6 @@ const io = new Server(app, {
 });
 
 io.on('connection', (socket) => {
-  console.log('CONNECTION!');
-  db.toto('connection');
-
-  socket.on('TOTOTO', () => {
-    console.log('TOTOTO');
-    socket.emit('RETURNTOSENDER', {
-      data: 'ploup',
-    });
-  });
-
   socket.on('GET_ARMY', (armyName) => {
     console.log('GET_ARMY', armyName);
     db.getArmy(armyName).then((army) => {

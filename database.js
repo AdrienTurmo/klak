@@ -19,13 +19,7 @@ const reviver = (key, value) => {
   return value;
 };
 
-const toto = (truc) =>
-  client.query('SELECT * from bipou where id = 1').then((response) => {
-    console.log(response.rows, truc);
-  });
-
 const getArmy = (armyid) => {
-  console.log('armyid', armyid);
   return client
     .query(
       `SELECT content
@@ -33,10 +27,7 @@ const getArmy = (armyid) => {
                 where id = '${armyid}'`,
     )
     .then((data) => {
-      // console.log('DABABASE', data);
-
       const armyData = JSON.parse(data.rows[0].content, reviver);
-      console.log('armyData', armyData);
       const unitIds = armyData.units.map((value) => `'${value}'`).reduce((a, b) => a + ',' + b);
 
       return client
@@ -58,6 +49,5 @@ const getArmy = (armyid) => {
 };
 
 module.exports = {
-  toto,
   getArmy,
 };
