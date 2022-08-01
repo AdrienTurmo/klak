@@ -16,6 +16,7 @@ export const App: React.FC = () => {
   const [version, setVersion] = useState<Version>();
   const [army, setArmy] = useState<Army>();
   const [armyUnits, setArmyUnits] = useState<ArmyUnit[]>([]);
+  const [armyToto, setArmyToto] = useState<Army>();
 
   const onNewArmy = (version: Version, army: Army) => {
     setVersion(version);
@@ -28,38 +29,21 @@ export const App: React.FC = () => {
   };
 
   const emitTruc = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const replacer = (key, value) => {
-      if (value instanceof Map) {
-        return {
-          dataType: 'Map',
-          value: Array.from(value.entries()), // or with spread: value: [...value]
-        };
-      } else {
-        return value;
-      }
-    };
-
-    socket.emit('TOTOTO');
-
-    const armyJson = JSON.stringify(ComtesVampiresV6, replacer);
-    const jsondata = 'data:application/json;charset=utf-8,' + encodeURIComponent(armyJson);
-
-    const exportFileDefaultName = `toto_${version}_s${new Date().toLocaleDateString()}.json`;
-
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', jsondata);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
+    socket.emit('GET_ARMY', 'CVV6');
   };
 
   socket.on('RETURNTOSENDER', (data) => {
     console.log(data);
   });
 
+  socket.on('GOT_ARMY', (armyToto: Army) => {
+    console.log('armyToto', armyToto);
+    setArmyToto(armyToto);
+  });
+
   return (
     <div className={styles.AppContainer}>
+      <div>{armyToto?.name}</div>
       <button onClick={emitTruc}>CLICK ME sdfgdf</button>
       <HomeHeader />
       {!army && (
